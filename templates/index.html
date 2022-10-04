@@ -4,18 +4,34 @@
 {% block styles %}
     {{super()}}
 <link rel="stylesheet"
-      href="{{url_for('static', filename='css/styles.css')}}">
+      href="static/css/styles.css">
 {% endblock %}
 {% block content %}
-<div>
+<div class="fade-in-image ">
 <h1>Welcome to The Bored room </h1>
 <h3>This website is one that will give you suggestions on activities  you can  do when you are bored.</h3>
 <p>The suggestion is for you to: </p>
 </div>
-    <div class="colors ">
-<h3  style="background-color:{{ item}};">{{form}}.</h3>
+    <div class="colors fade-in-image ">
+<h3 class="name" style="background-color:{{ item}};"></h3>
 
-
+<button type="button" class="btn btn-primary"> pick a new item</button>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+    <script>
+
+        $(document).ready(function(){
+        $("button").on("click",()=>{
+            const ranNum= Math.ceil(Math.random()*83)
+            $.get(`http://www.boredapi.com/api/activity`,function(data){
+                console.log(data)
+                $("h3.name").text(data['activity'])
+
+
+            })
+        })
+    })
+
+    </script>
 
 {% endblock %}
